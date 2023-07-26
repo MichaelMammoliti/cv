@@ -1,0 +1,124 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-family: 'Tahoma', sans-serif;
+  line-height: 1.1;
+  font-size: 10pt;
+}
+
+a {
+  color: #000;
+}
+
+body {
+  background: #ddd;
+}
+
+.paper {
+  background: #fff;
+  margin: auto;
+}
+
+.paper.inner {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.paper.a4 {
+  width: 21cm;
+  padding: 1.5cm 1.25cm;
+}
+
+@page {
+  size: A4;
+  padding: 0 0 0 0;
+  margin: 1.5cm 1.25cm;
+}
+
+@media print {
+  body,
+  html {
+    background: #fff;
+    line-height: 1.1;
+    font-size: 11pt;
+  }
+
+  .paper.a4 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+li {
+  margin-bottom: 0.2em;
+  margin-left: 1.2em;
+}
+
+ul li span {
+  display: block;
+  left: -5px;
+  position: relative;
+  line-height: 1.3;
+}
+
+td,
+th {
+  text-align: left;
+}
+
+.text.size-20 {
+  font-size: 2em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.spacer {
+  display: block;
+  height: 1.2em;
+  page-break-before: avoid;
+  page-break-inside: avoid;
+}
+
+.spacer.size-10 {
+  height: 1em;
+}
+
+.spacer.size-3 {
+  height: 0.2em;
+}
+
+.spacer.size-6 {
+  height: 0.7em;
+}
+
+.spacer.size-16 {
+  height: 1.6em;
+}
+/* 
+.section {
+  break-inside: avoid;
+} */
+
+.flex.container,
+.stack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

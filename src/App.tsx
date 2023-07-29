@@ -1,4 +1,13 @@
+import { Helmet } from 'react-helmet';
 import { Experience, experience, personalDetails, socials } from './data/cv';
+
+interface SkillPillProps {
+  children: string;
+}
+
+const SkillPill = ({ children }: SkillPillProps) => (
+  <span className="pill">{children}</span>
+);
 
 const Header = () => (
   <div>
@@ -9,13 +18,15 @@ const Header = () => (
       </span>
     </div>
 
-    <div className="spacer size-3" />
+    <div className="spacer size-4" />
 
     <div>
       <span>
         {socials.map((social, index) => (
           <span key={index}>
-            <a href={social.url}>{social.text}</a>
+            <a href={social.url} target={social.target}>
+              {social.text}
+            </a>
             {index !== socials.length - 1 && ' • '}
           </span>
         ))}
@@ -31,27 +42,41 @@ const ExperienceItem = ({
   position,
   date,
   description,
+  skills,
+  project,
 }: Experience) => {
   const ExperienceHeadline = () => (
     <span className="text bold">
-      {[position, company.name].filter(Boolean).join(' @ ')} |{' '}
+      {[position, company?.name || project?.name].filter(Boolean).join(' @ ')} |{' '}
       {[type, locationType].filter(Boolean).join(' - ')}
     </span>
   );
 
   return (
     <div className="section">
-      <div className="stack">
+      <div className="flex space-between">
         <ExperienceHeadline />
+
         <span className="text bold">{date}</span>
       </div>
 
-      <div className="spacer size-6" />
+      <div className="spacer size-4" />
+
+      <div className="flex gap">
+        {skills.map((skill, index) => (
+          <SkillPill key={index}>{skill}</SkillPill>
+        ))}
+      </div>
+
+      <div className="spacer size-4" />
 
       <ul>
         {description.map((paragraph, index) => (
           <li key={index}>
-            <span>{paragraph}</span>
+            <span>
+              {paragraph}
+              {index === description.length - 1 ? '.' : ';'}
+            </span>
           </li>
         ))}
       </ul>
@@ -59,18 +84,39 @@ const ExperienceItem = ({
   );
 };
 
+const getTitle = () => {
+  const year = new Date().getFullYear();
+  const lastExperienceCompanyOrProject =
+    experience[0].company?.name || experience[0].project?.name;
+
+  return [
+    `${personalDetails.name.replace(' ', '')}CV`,
+    year,
+    lastExperienceCompanyOrProject,
+  ]
+    .filter(Boolean)
+    .join('_');
+};
+
 export const App = () => (
-  <div className="paper a4">
-    <div className="paper inner">
-      <Header />
-      <div className="spacer" />
-      <div className="spacer" />
-      {experience.map((experienceItem, index) => (
-        <>
-          {!!index && <div className="spacer size-16" />}
-          <ExperienceItem key={index} {...experienceItem} />
-        </>
-      ))}
+  <>
+    <Helmet>
+      <title>{getTitle()}</title>
+    </Helmet>
+
+    <div className="paper a4">
+      <div className="paper inner">
+        <Header />
+
+        <div className="spacer size-16" />
+
+        {experience.map((experienceItem, index) => (
+          <div key={index}>
+            {!!index && <div className="spacer size-12" />}
+            <ExperienceItem key={index} {...experienceItem} />
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
+  </>
 );

@@ -43,7 +43,9 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
+    "frappe-charts": "^1.6.2",
     "react-dom": "^18.2.0",
+    "react-frappe-charts": "^4.1.0",
     "react-helmet": "^6.1.0"
   }
 }

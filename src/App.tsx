@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { HeatMap } from './components';
 import { experience, personalDetails, socials } from './data/cv';
 import { Experience } from './types';
 
@@ -127,6 +128,10 @@ export const App = () => (
     <div className="paper a4">
       <div className="paper inner">
         <Header />
+
+        <div className="spacer size-16" />
+
+        <HeatMap experience={experience} />
 
         <div className="spacer size-16" />
 

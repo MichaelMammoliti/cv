@@ -1,31 +1,4 @@
-export interface PersonalDetails {
-  name: string;
-  position: string;
-}
-
-export interface Link {
-  name: string;
-  url: string;
-  text: string;
-  target?: string;
-}
-
-export interface Experience {
-  company?: {
-    name: string;
-    url: string;
-  };
-  project?: {
-    name: string;
-    url: string;
-  };
-  type: string;
-  locationType: string;
-  position: string;
-  date: string;
-  description: string[];
-  skills: string[];
-}
+import { DateRange, Experience, Link, PersonalDetails } from '../types';
 
 export const personalDetails: PersonalDetails = {
   name: 'Michael Mammoliti',
@@ -52,6 +25,21 @@ export const socials: Link[] = [
   },
 ];
 
+export const datesArray: DateRange[] = [
+  { from: '2023-04-01T00:00:00.000Z', to: 'Present' },
+  { from: '2023-01-01T00:00:00.000Z', to: '2023-03-31T00:00:00.000Z' },
+  { from: '2021-10-01T00:00:00.000Z', to: '2022-10-01T00:00:00.000Z' },
+  { from: '2021-04-01T00:00:00.000Z', to: '2021-09-30T00:00:00.000Z' },
+  { from: '2020-02-01T00:00:00.000Z', to: '2021-04-01T00:00:00.000Z' },
+  { from: '2019-08-01T00:00:00.000Z', to: '2020-02-01T00:00:00.000Z' },
+  { from: '2019-02-01T00:00:00.000Z', to: '2019-04-01T00:00:00.000Z' },
+  { from: '2018-07-01T00:00:00.000Z', to: '2018-12-31T00:00:00.000Z' },
+  { from: '2017-09-01T00:00:00.000Z', to: '2018-06-30T00:00:00.000Z' },
+  { from: '2016-12-01T00:00:00.000Z', to: '2017-09-30T00:00:00.000Z' },
+  { from: '2016-05-01T00:00:00.000Z', to: '2016-12-31T00:00:00.000Z' },
+  { from: '2010-01-01T00:00:00.000Z', to: '2016-05-31T00:00:00.000Z' },
+];
+
 export const experience: Experience[] = [
   {
     company: {
@@ -65,7 +53,8 @@ export const experience: Experience[] = [
     type: 'Freelance',
     locationType: 'Remote',
     position: 'Senior Full Stack Engineer',
-    date: 'Apr 2023 - Present',
+    // date: 'Apr 2023 - Present',
+    date: datesArray[0],
     description: [
       'built a real-time, multiplayer, turn-based card game using React, MaterialUI, SCSS, Firebase, GCP, and Node',
       'created an AI bot on the backend to play against real players',
@@ -106,7 +95,8 @@ export const experience: Experience[] = [
     type: 'Contract',
     locationType: 'Remote',
     position: 'Senior Front End Engineer',
-    date: 'Jan 2023 - March 2023',
+    // date: 'Jan 2023 - March 2023',
+    date: datesArray[1],
     description: [
       'led the development of a greenfield React/Typescript project',
       'implemented custom data-driven dashboard widgets to visualise complex data in various formats',
@@ -134,7 +124,8 @@ export const experience: Experience[] = [
     type: 'Permanent',
     locationType: 'Remote',
     position: 'Senior Full Stack Engineer',
-    date: 'Oct 2021 - Oct 2022',
+    // date: 'Oct 2021 - Oct 2022',
+    date: datesArray[2],
     description: [
       'worked on a Real Time Logistic and Supply Chain application using React, Typescript, Material UI and Firebase',
       `architected a new Firestore structure and rewritten the most important application's pages/flows`,
@@ -178,7 +169,8 @@ export const experience: Experience[] = [
     type: 'Contract',
     locationType: 'Remote',
     position: 'Senior Front End Developer',
-    date: 'Apr 2021 - Sept 2021',
+    // date: 'Apr 2021 - Sept 2021',
+    date: datesArray[3],
     description: [
       'worked on a headless portal split into headless fragments specifically designed for business users',
       `improved user accessibility (a11y) for entire fragments using ARIA attributes in Storybook's components`,
@@ -208,7 +200,8 @@ export const experience: Experience[] = [
     position: 'Senior Full Stack Developer (MERN)',
     type: 'Freelance',
     locationType: 'Remote',
-    date: 'Feb 2020 - Apr 2021',
+    // date: 'Feb 2020 - Apr 2021',
+    date: datesArray[4],
     description: [
       'designed the UX and UI for two projects using Figma and reached clients directly to get quick feedbacks',
       'created all components in Storybook from scratch using React, hooks, Recoil.js',
@@ -245,7 +238,8 @@ export const experience: Experience[] = [
     type: 'Contract',
     position: 'Senior Front End Developer',
     locationType: 'On Site',
-    date: 'Aug 2019 - Feb 2020',
+    // date: 'Aug 2019 - Feb 2020',
+    date: datesArray[5],
     description: [
       'refactored/improved React components and used a custom SCSS architecture to maintain 4 different themes',
       'worked on an internal CMS used to generate a JSON configuration for the main application',
@@ -294,7 +288,8 @@ export const experience: Experience[] = [
     type: 'Contract',
     locationType: 'On Site',
     position: 'Senior Front End Developer',
-    date: 'Feb 2019 - Apr 2019',
+    // date: 'Feb 2019 - Apr 2019',
+    date: datesArray[6],
     description: [
       'worked on a big monorepo eCommerce application for one client on site',
       'built React components from scratch and abstracted reusable ones into Storybook',
@@ -324,7 +319,8 @@ export const experience: Experience[] = [
     type: 'Contract',
     locationType: 'On Site',
     position: 'Senior Front End Developer',
-    date: 'Jul 2018 - Dec 2018',
+    // date: 'Jul 2018 - Dec 2018',
+    date: datesArray[7],
     description: [
       'styled React components following a custom SASS/CSS architecture',
       'shared with the team some architecture improvements for UX and javascript performances',
@@ -340,7 +336,8 @@ export const experience: Experience[] = [
     position: 'Senior Front End Developer',
     type: 'Permanent',
     locationType: 'On Site',
-    date: 'Sept 2017 - Jun 2018',
+    // date: 'Sept 2017 - Jun 2018',
+    date: datesArray[8],
     description: [
       `worked on crucial features to respect our clients' legal requirements`,
       'working close to QA fixed bugs faster and achieved a better understanding of the codebase',
@@ -379,7 +376,8 @@ export const experience: Experience[] = [
     position: 'Front End Developer',
     type: 'Permanent',
     locationType: 'On Site',
-    date: 'Dec 2016 - Sept 2017',
+    // date: 'Dec 2016 - Sept 2017',
+    date: datesArray[9],
     description: [
       'built complex, scalable and performant components for a large scale and data driven CMS application',
       'using ES6, node, npm, React and its core tools and utilities',
@@ -410,7 +408,8 @@ export const experience: Experience[] = [
     position: 'Front End Developer',
     type: 'Permanent',
     locationType: 'On Site',
-    date: 'May 2016 - Dec 2016',
+    // date: 'May 2016 - Dec 2016',
+    date: datesArray[10],
     description: [
       'improved my code organisation and my Javascript using different patterns (revealing module, singleton)',
       'build a single page application consuming REST APIs and creating components using jQuery',
@@ -427,7 +426,8 @@ export const experience: Experience[] = [
     position: 'Full Stack Web Developer',
     type: 'Freelance',
     locationType: 'Remote',
-    date: '2010 - May 2016',
+    // date: '2010 - May 2016',
+    date: datesArray[11],
     description: [
       'worked individually delivering websites using Front End and Back End technologies',
       `learnt how to deal with browsers' compatibility issues and Responsive Web Design techniques`,

@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
-import { Experience, experience, personalDetails, socials } from './data/cv';
+import { experience, personalDetails, socials } from './data/cv';
+import { Experience } from './types';
 
 interface SkillPillProps {
   children: string;
@@ -35,6 +36,23 @@ const Header = () => (
   </div>
 );
 
+const displayDate = (dateStr: string) => {
+  if (dateStr.toLocaleLowerCase() === 'present') {
+    return dateStr;
+  }
+
+  const d = new Date(dateStr);
+
+  if (d.toString() === 'Invalid Date') {
+    return 'Invalid Date';
+  }
+
+  const month = d.toLocaleString('default', { month: 'short' });
+  const year = d.getFullYear();
+
+  return `${month} ${year}`;
+};
+
 const ExperienceItem = ({
   company,
   type,
@@ -57,7 +75,9 @@ const ExperienceItem = ({
       <div className="flex space-between">
         <ExperienceHeadline />
 
-        <span className="text bold">{date}</span>
+        <span className="text bold">
+          {displayDate(date?.from)} - {displayDate(date?.to)}
+        </span>
       </div>
 
       <div className="spacer size-4" />

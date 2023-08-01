@@ -10,16 +10,13 @@
 body,
 html {
   font-family: 'Tahoma', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.2;
+  background: #fff;
 }
 
 a {
   color: #000;
-}
-
-body {
-  background: #ddd;
 }
 
 .paper {
@@ -46,7 +43,6 @@ body {
 @media print {
   body,
   html {
-    background: #fff;
     font-size: 14px;
   }
 
@@ -78,12 +74,40 @@ th {
   text-align: left;
 }
 
-.text.size-20 {
-  font-size: 2rem;
+.text.weight-100 {
+  font-weight: 100;
 }
 
-.bold {
-  font-weight: bold;
+.text.weight-200 {
+  font-weight: 200;
+}
+
+.text.weight-300 {
+  font-weight: 300;
+}
+
+.text.weight-400 {
+  font-weight: 400;
+}
+
+.text.weight-500 {
+  font-weight: 500;
+}
+
+.text.weight-600 {
+  font-weight: 600;
+}
+
+.text.weight-700 {
+  font-weight: 700;
+}
+
+.text.weight-800 {
+  font-weight: 800;
+}
+
+.text.weight-900 {
+  font-weight: 900;
 }
 
 .spacer {
@@ -142,10 +166,10 @@ th {
 }
 
 .pill {
-  background: #555;
-  color: #fff;
+  background: #ddd;
+  color: #000;
   border-radius: 0.2rem;
-  padding: 0.2rem;
-  align-items: center;
-  font-size: 0.7rem;
+  padding: 0.1rem 0.2rem;
+  display: block;
+  height: auto;
 }

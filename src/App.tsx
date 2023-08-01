@@ -1,4 +1,7 @@
+import clsx from 'clsx';
+import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Stack } from './components/Grid/Stack';
 import { experience, personalDetails, socials } from './data/cv';
 import { Experience } from './types';
 
@@ -7,33 +10,68 @@ interface SkillPillProps {
 }
 
 const SkillPill = ({ children }: SkillPillProps) => (
-  <span className="pill">{children}</span>
+  <div className="pill">
+    <Text size={0.7} block>
+      {children}
+    </Text>
+  </div>
+);
+
+interface TextProps {
+  size?: number;
+  weight?: number;
+  block?: boolean;
+  children: React.ReactNode;
+}
+
+const Text = ({ size, children, weight, block }: TextProps) => (
+  <span
+    style={{
+      fontSize: `${size}rem`,
+      display: block ? 'block' : 'inline',
+    }}
+    className={clsx('text', {
+      [`weight-${weight}`]: weight,
+    })}
+  >
+    {children}
+  </span>
+);
+
+interface LinkProps {
+  href: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  children: React.ReactNode;
+}
+
+const Link = ({ href, target, children }: LinkProps) => (
+  <a href={href} target={target}>
+    {children}
+  </a>
+);
+
+const Socials = () => (
+  <div>
+    {socials.map((social, index) => (
+      <Text key={index}>
+        <Link href={social.url} target={social.target}>
+          {social.text}
+        </Link>
+        {index !== socials.length - 1 && ' • '}
+      </Text>
+    ))}
+  </div>
 );
 
 const Header = () => (
-  <div>
-    <div>
-      <span className="text size-20">
-        <span className="text bold">{personalDetails.name}</span> |{' '}
-        {personalDetails.position}
-      </span>
-    </div>
+  <Stack gap={0.4}>
+    <Text size={2.2}>
+      <Text weight={800}>{personalDetails.name}</Text> |{' '}
+      {personalDetails.position}
+    </Text>
 
-    <div className="spacer size-4" />
-
-    <div>
-      <span>
-        {socials.map((social, index) => (
-          <span key={index}>
-            <a href={social.url} target={social.target}>
-              {social.text}
-            </a>
-            {index !== socials.length - 1 && ' • '}
-          </span>
-        ))}
-      </span>
-    </div>
-  </div>
+    <Socials />
+  </Stack>
 );
 
 const displayDate = (dateStr: string) => {
@@ -53,56 +91,69 @@ const displayDate = (dateStr: string) => {
   return `${month} ${year}`;
 };
 
-const ExperienceItem = ({
+const ExperienceSkills = ({ skills }: Experience) => (
+  <div>
+    <Stack direction="row" gap={0.2}>
+      {skills?.map((skill, index) => (
+        <SkillPill key={index}>{skill}</SkillPill>
+      ))}
+    </Stack>
+  </div>
+);
+
+const ExperienceHeadline = ({
   company,
   type,
   locationType,
   position,
-  date,
-  description,
-  skills,
   project,
-}: Experience) => {
-  const ExperienceHeadline = () => (
-    <span className="text bold">
-      {[position, company?.name || project?.name].filter(Boolean).join(' @ ')} |{' '}
-      {[type, locationType].filter(Boolean).join(' - ')}
-    </span>
-  );
+}: Experience) => (
+  <Text weight={800}>
+    {[position, company?.name || project?.name].filter(Boolean).join(' @ ')} |{' '}
+    {[type, locationType].filter(Boolean).join(' - ')}
+  </Text>
+);
 
-  return (
-    <div className="section">
-      <div className="flex space-between">
-        <ExperienceHeadline />
+export interface BulletPointsProps {
+  items: string[];
+}
 
-        <span className="text bold">
-          {displayDate(date?.from)} - {displayDate(date?.to)}
-        </span>
-      </div>
+const BulletPoints = ({ items }: BulletPointsProps) => (
+  <ul>
+    {items.map((item, index) => (
+      <li key={index}>
+        <Text>
+          {item}
+          {index === items.length - 1 ? '.' : ';'}
+        </Text>
+      </li>
+    ))}
+  </ul>
+);
 
-      <div className="spacer size-4" />
+const ExperienceDescription = ({ description }: Experience) => (
+  <BulletPoints items={description} />
+);
 
-      <div className="flex gap">
-        {skills.map((skill, index) => (
-          <SkillPill key={index}>{skill}</SkillPill>
-        ))}
-      </div>
+const ExperienceDates = ({ date }: Experience) => (
+  <Text weight={800}>
+    {displayDate(date?.from)} - {displayDate(date?.to)}
+  </Text>
+);
 
-      <div className="spacer size-4" />
+const ExperienceItem = (props: Experience) => (
+  <div className="section">
+    <Stack gap={0.4} fullWidth>
+      <Stack direction="row" fullWidth justifyContent="space-between">
+        <ExperienceHeadline {...props} />
+        <ExperienceDates {...props} />
+      </Stack>
 
-      <ul>
-        {description.map((paragraph, index) => (
-          <li key={index}>
-            <span>
-              {paragraph}
-              {index === description.length - 1 ? '.' : ';'}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+      <ExperienceSkills {...props} />
+      <ExperienceDescription {...props} />
+    </Stack>
+  </div>
+);
 
 const getTitle = () => {
   const year = new Date().getFullYear();
@@ -124,19 +175,16 @@ export const App = () => (
       <title>{getTitle()}</title>
     </Helmet>
 
-    <div className="paper a4">
-      <div className="paper inner">
-        <Header />
+    <Stack gap={2}>
+      <Header />
 
-        <div className="spacer size-16" />
-
+      <Stack gap={2}>
         {experience.map((experienceItem, index) => (
           <div key={index}>
-            {!!index && <div className="spacer size-12" />}
             <ExperienceItem key={index} {...experienceItem} />
           </div>
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   </>
 );

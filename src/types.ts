@@ -7,7 +7,7 @@ export interface Link {
   name: string;
   url: string;
   text: string;
-  target?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
 }
 
 export interface DateRange {

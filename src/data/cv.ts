@@ -67,7 +67,7 @@ export const experience: Experience[] = [
       'mentored and taught modern Front-End development real-world workflows and best practices to junior colleagues',
       'managed the project by creating and updating Jira boards, sprints, and tickets',
       'designed the app using Figma',
-      'explored Swift, Svelte, and TensorFlow docs',
+      'explored TensorFlow, Svelte, Swift, Python, and OpenAI APIs',
     ],
     skills: [
       'React',

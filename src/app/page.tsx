@@ -1,5 +1,4 @@
-import { Helmet } from 'react-helmet';
-import { experience, personalDetails, socials } from './data/cv';
+import { experience, personalDetails, socials } from './_data/data/cv';
 import { Experience } from './types';
 
 interface SkillPillProps {

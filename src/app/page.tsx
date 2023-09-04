@@ -1,9 +1,41 @@
+import Head from 'next/head';
 import { experience, personalDetails, socials } from './_data/data/cv';
-import { Experience } from './types';
+import type { Experience } from './types';
 
 interface SkillPillProps {
   children: string;
 }
+
+const displayDate = (dateStr: string) => {
+  if (dateStr.toLocaleLowerCase() === 'present') {
+    return dateStr;
+  }
+
+  const d = new Date(dateStr);
+
+  if (d.toString() === 'Invalid Date') {
+    return 'Invalid Date';
+  }
+
+  const month = d.toLocaleString('default', { month: 'short' });
+  const year = d.getFullYear();
+
+  return `${month} ${year}`;
+};
+
+const getTitle = () => {
+  const year = new Date().getFullYear();
+  const lastExperienceCompanyOrProject =
+    experience[0].company?.name || experience[0].project?.name;
+
+  return [
+    `${personalDetails.name.replace(' ', '')}CV`,
+    year,
+    lastExperienceCompanyOrProject,
+  ]
+    .filter(Boolean)
+    .join('_');
+};
 
 const SkillPill = ({ children }: SkillPillProps) => (
   <span className="pill">{children}</span>
@@ -34,23 +66,6 @@ const Header = () => (
     </div>
   </div>
 );
-
-const displayDate = (dateStr: string) => {
-  if (dateStr.toLocaleLowerCase() === 'present') {
-    return dateStr;
-  }
-
-  const d = new Date(dateStr);
-
-  if (d.toString() === 'Invalid Date') {
-    return 'Invalid Date';
-  }
-
-  const month = d.toLocaleString('default', { month: 'short' });
-  const year = d.getFullYear();
-
-  return `${month} ${year}`;
-};
 
 const ExperienceItem = ({
   company,
@@ -103,25 +118,11 @@ const ExperienceItem = ({
   );
 };
 
-const getTitle = () => {
-  const year = new Date().getFullYear();
-  const lastExperienceCompanyOrProject =
-    experience[0].company?.name || experience[0].project?.name;
-
-  return [
-    `${personalDetails.name.replace(' ', '')}CV`,
-    year,
-    lastExperienceCompanyOrProject,
-  ]
-    .filter(Boolean)
-    .join('_');
-};
-
-export const App = () => (
-  <>
-    <Helmet>
+const Page = () => (
+  <div>
+    <Head>
       <title>{getTitle()}</title>
-    </Helmet>
+    </Head>
 
     <div className="paper a4">
       <div className="paper inner">
@@ -137,5 +138,7 @@ export const App = () => (
         ))}
       </div>
     </div>
-  </>
+  </div>
 );
+
+export default Page;

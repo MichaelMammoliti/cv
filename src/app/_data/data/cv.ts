@@ -1,4 +1,4 @@
-import { DateRange, Experience, Link, PersonalDetails } from '../types';
+import { DateRange, Experience, Link, PersonalDetails } from '../../types';
 
 export const personalDetails: PersonalDetails = {
   name: 'Michael Mammoliti',
